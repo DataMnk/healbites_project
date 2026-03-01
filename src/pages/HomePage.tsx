@@ -1,44 +1,177 @@
 import { Link } from "react-router-dom";
-import supabase from "../supabase";
 import { useSession } from "../context/SessionContext";
+
+const FEATURES = [
+  {
+    icon: "🍽️",
+    title: "Personalized Meal Plans",
+    desc: "7-day plans tailored to your health conditions, dietary needs, and cultural food preferences — backed by clinical nutrition guidelines.",
+  },
+  {
+    icon: "🛒",
+    title: "Smart Shopping Lists",
+    desc: "Auto-generated weekly lists organized into 4 supermarket sections. Tap items as you shop, no syncing needed.",
+  },
+  {
+    icon: "💬",
+    title: "AI Nutrition Chat",
+    desc: "Ask anything about your plan. Get personalized, educated answers 24/7 — always grounded in your specific health profile.",
+  },
+];
+
+const STEPS = [
+  { num: "01", title: "Build your health profile", desc: "Share your conditions, goals, dietary type, and food culture in a quick 4-step wizard." },
+  { num: "02", title: "Get your weekly plan", desc: "Our AI nutritionist generates a medically-informed 7-day meal plan in under 30 seconds." },
+  { num: "03", title: "Shop and eat smarter", desc: "Use your auto-generated list at the store, then understand every meal choice with education tips." },
+];
 
 const HomePage = () => {
   const { session } = useSession();
+
   return (
-    <main>
-      <section className="main-container">
-        <h1 className="header-text">React Supabase Auth Template</h1>
-        <p>Current User : {session?.user.email || "None"}</p>
-        {session ? (
-          <button onClick={() => supabase.auth.signOut()}>Sign Out</button>
-        ) : (
-          <Link to="/auth/sign-in">Sign In</Link>
-        )}
-        <Link to="/protected">Protected Page 🛡️</Link>
-        <div id="divider"></div>
-        <Link
-          to="https://github.com/mmvergara/react-supabase-auth-template"
-          target="_blank"
-          rel="noreferrer noopener"
-          id="github-repo-link"
-        >
-          <svg
-            xmlns="http://www.w3.org/2000/svg"
-            x="0px"
-            y="0px"
-            width="30"
-            height="50"
-            viewBox="0 0 64 64"
-          >
-            <path
-              fill="#fff"
-              d="M32 6C17.641 6 6 17.641 6 32c0 12.277 8.512 22.56 19.955 25.286-.592-.141-1.179-.299-1.755-.479V50.85c0 0-.975.325-2.275.325-3.637 0-5.148-3.245-5.525-4.875-.229-.993-.827-1.934-1.469-2.509-.767-.684-1.126-.686-1.131-.92-.01-.491.658-.471.975-.471 1.625 0 2.857 1.729 3.429 2.623 1.417 2.207 2.938 2.577 3.721 2.577.975 0 1.817-.146 2.397-.426.268-1.888 1.108-3.57 2.478-4.774-6.097-1.219-10.4-4.716-10.4-10.4 0-2.928 1.175-5.619 3.133-7.792C19.333 23.641 19 22.494 19 20.625c0-1.235.086-2.751.65-4.225 0 0 3.708.026 7.205 3.338C28.469 19.268 30.196 19 32 19s3.531.268 5.145.738c3.497-3.312 7.205-3.338 7.205-3.338.567 1.474.65 2.99.65 4.225 0 2.015-.268 3.19-.432 3.697C46.466 26.475 47.6 29.124 47.6 32c0 5.684-4.303 9.181-10.4 10.4 1.628 1.43 2.6 3.513 2.6 5.85v8.557c-.576.181-1.162.338-1.755.479C49.488 54.56 58 44.277 58 32 58 17.641 46.359 6 32 6zM33.813 57.93C33.214 57.972 32.61 58 32 58 32.61 58 33.213 57.971 33.813 57.93zM37.786 57.346c-1.164.265-2.357.451-3.575.554C35.429 57.797 36.622 57.61 37.786 57.346zM32 58c-.61 0-1.214-.028-1.813-.07C30.787 57.971 31.39 58 32 58zM29.788 57.9c-1.217-.103-2.411-.289-3.574-.554C27.378 57.61 28.571 57.797 29.788 57.9z"
-            ></path>
-          </svg>
-          Star us on Github 🌟
-        </Link>
+    <div className="lp">
+      {/* ── Navigation ── */}
+      <nav className="lp-nav">
+        <div className="lp-nav-inner">
+          <div className="lp-logo">
+            <span className="lp-logo-icon">🌿</span>
+            <span className="lp-logo-text">HealBites</span>
+          </div>
+          <div className="lp-nav-actions">
+            {session ? (
+              <Link to="/dashboard" className="lp-nav-cta">
+                Go to dashboard →
+              </Link>
+            ) : (
+              <>
+                <Link to="/auth/sign-in" className="lp-nav-link">
+                  Sign in
+                </Link>
+                <Link to="/auth/sign-up" className="lp-nav-cta">
+                  Get started free
+                </Link>
+              </>
+            )}
+          </div>
+        </div>
+      </nav>
+
+      {/* ── Hero ── */}
+      <section className="lp-hero">
+        <div className="lp-hero-bg">
+          <div className="lp-orb lp-orb-1" />
+          <div className="lp-orb lp-orb-2" />
+          <div className="lp-orb lp-orb-3" />
+        </div>
+        <div className="lp-hero-inner">
+          <span className="lp-eyebrow">Personalized nutrition for chronic care</span>
+          <h1 className="lp-hero-title">
+            Smarter Meals.<br />Healthier Lives.
+          </h1>
+          <p className="lp-hero-sub">
+            HealBites builds your weekly meal plan around your health conditions,
+            dietary restrictions, and food culture — then teaches you the{" "}
+            <em className="lp-em">why</em> behind every bite.
+          </p>
+          <div className="lp-hero-actions">
+            <Link to="/auth/sign-up" className="lp-btn-primary">
+              Start for free →
+            </Link>
+            <Link to="/auth/sign-in" className="lp-btn-ghost">
+              Sign in
+            </Link>
+          </div>
+          <p className="lp-hero-note">No credit card required · Takes 3 minutes</p>
+        </div>
       </section>
-    </main>
+
+      {/* ── Features ── */}
+      <section className="lp-features">
+        <div className="lp-section-inner">
+          <span className="lp-section-label">What you get</span>
+          <h2 className="lp-section-title">Nutrition, simplified.</h2>
+          <div className="lp-feature-grid">
+            {FEATURES.map((f) => (
+              <div key={f.title} className="lp-feature-card">
+                <span className="lp-feature-icon">{f.icon}</span>
+                <h3 className="lp-feature-title">{f.title}</h3>
+                <p className="lp-feature-desc">{f.desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── How it works ── */}
+      <section className="lp-how">
+        <div className="lp-section-inner">
+          <span className="lp-section-label lp-section-label-light">How it works</span>
+          <h2 className="lp-section-title lp-section-title-light">
+            From profile to plan in minutes.
+          </h2>
+          <div className="lp-steps">
+            {STEPS.map((s) => (
+              <div key={s.num} className="lp-step">
+                <span className="lp-step-num">{s.num}</span>
+                <div>
+                  <h3 className="lp-step-title">{s.title}</h3>
+                  <p className="lp-step-desc">{s.desc}</p>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ── Education principle ── */}
+      <section className="lp-edu">
+        <div className="lp-edu-inner">
+          <div className="lp-edu-badge">🎓</div>
+          <div>
+            <h3 className="lp-edu-title">
+              We don't just tell you <em className="lp-em">what</em> to eat.
+            </h3>
+            <p className="lp-edu-desc">
+              Every meal recommendation includes a personalized clinical reason — a
+              warm, friendly explanation of exactly why that food benefits{" "}
+              <em className="lp-em">your</em> specific conditions and goals.
+              Education is woven into every interaction.
+            </p>
+            <blockquote className="lp-edu-example">
+              "Salmon is rich in omega-3 fatty acids, which help reduce inflammation
+              and directly support your cholesterol management goal."
+            </blockquote>
+          </div>
+        </div>
+      </section>
+
+      {/* ── CTA bar ── */}
+      <section className="lp-cta-bar">
+        <div className="lp-cta-bar-inner">
+          <h2 className="lp-cta-title">Ready to eat smarter?</h2>
+          <p className="lp-cta-sub">
+            Create your health profile in 4 steps. Your first plan is ready in
+            under 30 seconds.
+          </p>
+          <Link to="/auth/sign-up" className="lp-btn-primary lp-btn-lg">
+            Get started free →
+          </Link>
+        </div>
+      </section>
+
+      {/* ── Footer ── */}
+      <footer className="lp-footer">
+        <div className="lp-footer-inner">
+          <div className="lp-logo">
+            <span className="lp-logo-icon">🌿</span>
+            <span className="lp-logo-text">HealBites</span>
+          </div>
+          <p className="lp-footer-copy">
+            © 2026 HealBites · Smarter Meals. Healthier Lives.
+          </p>
+        </div>
+      </footer>
+    </div>
   );
 };
 

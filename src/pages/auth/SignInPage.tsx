@@ -8,7 +8,7 @@ const SignInPage = () => {
   // If user is already logged in, redirect to home
   // This logic is being repeated in SignIn and SignUp..
   const { session } = useSession();
-  if (session) return <Navigate to="/" />;
+  if (session) return <Navigate to="/dashboard" />;
   // maybe we can create a wrapper component for these pages
   // just like the ./router/AuthProtectedRoute.tsx? up to you.
   // ==============================

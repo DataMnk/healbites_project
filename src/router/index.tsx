@@ -2,13 +2,16 @@ import { createBrowserRouter } from "react-router-dom";
 import HomePage from "../pages/HomePage.tsx";
 import SignInPage from "../pages/auth/SignInPage.tsx";
 import SignUpPage from "../pages/auth/SignUpPage.tsx";
-import ProtectedPage from "../pages/ProtectedPage.tsx";
+import DashboardPage from "../pages/DashboardPage.tsx";
+import OnboardingPage from "../pages/OnboardingPage.tsx";
+import MealPlanPage from "../pages/MealPlanPage.tsx";
+import ShoppingListPage from "../pages/ShoppingListPage.tsx";
+import ChatPage from "../pages/ChatPage.tsx";
 import NotFoundPage from "../pages/404Page.tsx";
 import AuthProtectedRoute from "./AuthProtectedRoute.tsx";
 import Providers from "../Providers.tsx";
 
 const router = createBrowserRouter([
-  // I recommend you reflect the routes here in the pages folder
   {
     path: "/",
     element: <Providers />,
@@ -32,8 +35,24 @@ const router = createBrowserRouter([
         element: <AuthProtectedRoute />,
         children: [
           {
-            path: "/protected",
-            element: <ProtectedPage />,
+            path: "/dashboard",
+            element: <DashboardPage />,
+          },
+          {
+            path: "/onboarding",
+            element: <OnboardingPage />,
+          },
+          {
+            path: "/meal-plan",
+            element: <MealPlanPage />,
+          },
+          {
+            path: "/shopping-list",
+            element: <ShoppingListPage />,
+          },
+          {
+            path: "/chat",
+            element: <ChatPage />,
           },
         ],
       },
