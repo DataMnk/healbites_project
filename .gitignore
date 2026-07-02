@@ -22,4 +22,8 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+<<<<<<< HEAD
+=======
+
+>>>>>>> f46a86f9789629a1acbc308ac1e6089454bf0107
 .mcp.json
