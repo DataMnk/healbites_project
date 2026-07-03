@@ -8,15 +8,15 @@ const SignUpPage = () => {
   // If user is already logged in, redirect to home
   // This logic is being repeated in SignIn and SignUp..
   const { session } = useSession();
-  if (session) return <Navigate to="/dashboard" />;
-  // maybe we can create a wrapper component for these pages
-  // just like the ./router/AuthProtectedRoute.tsx? up to you.
-  // ==============================
   const [status, setStatus] = useState("");
   const [formValues, setFormValues] = useState({
     email: "",
     password: "",
   });
+  if (session) return <Navigate to="/dashboard" />;
+  // maybe we can create a wrapper component for these pages
+  // just like the ./router/AuthProtectedRoute.tsx? up to you.
+  // ==============================
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setFormValues({ ...formValues, [e.target.name]: e.target.value });
@@ -25,12 +25,20 @@ const SignUpPage = () => {
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     setStatus("Creating account...");
-    const { error } = await supabase.auth.signUp({
+    const { data, error } = await supabase.auth.signUp({
       email: formValues.email,
       password: formValues.password,
     });
     if (error) {
       alert(error.message);
+      setStatus("");
+      return;
+    }
+    if (!data.session) {
+      setStatus(
+        "¡Cuenta creada! Revisa tu correo para confirmar tu cuenta antes de iniciar sesión.",
+      );
+      return;
     }
     setStatus("");
   };
